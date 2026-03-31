@@ -1,10 +1,5 @@
 import type { Metadata, Viewport } from "next"
 import { Inter, Playfair_Display } from "next/font/google"
-import dynamic from "next/dynamic"
-const Analytics = dynamic(
-  () => import("@vercel/analytics/next").then(m => m.Analytics),
-  { ssr: false }
-)
 import "./globals.css"
 
 const inter = Inter({
@@ -65,7 +60,6 @@ export default function RootLayout({
         className={`${inter.variable} ${playfair.variable} font-sans antialiased`}
       >
         {children}
-        <Analytics />
       </body>
     </html>
   )
