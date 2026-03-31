@@ -3,7 +3,8 @@
 import { motion } from "framer-motion"
 import { useScrollAnimation } from "@/hooks/use-scroll-animation"
 import { useLanguage } from "@/lib/language-context"
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
+import { useAnimation } from "framer-motion"
 
 /* ─── Animated counter ─── */
 function AnimatedCounter({
@@ -89,13 +90,21 @@ export function TrustSection() {
   const { ref: teamRef,  isInView: teamInView }    = useScrollAnimation()
 
   const allTestimonials = [...testimonials, ...testimonials]
+  const marqueeControls = useAnimation()
+
+  useEffect(() => {
+    marqueeControls.start({
+      x: ["0%", "-50%"],
+      transition: { duration: 40, repeat: Infinity, ease: "linear" },
+    })
+  }, [marqueeControls])
 
   return (
-    <section id="about" className="relative py-24 lg:py-32 overflow-hidden">
+    <section id="about" className="relative py-16 lg:py-32 overflow-hidden">
 
       {/* ── Header ── */}
       <div ref={titleRef} className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="mx-auto max-w-2xl text-center mb-20">
+        <div className="mx-auto max-w-2xl text-center mb-12 lg:mb-20">
           <motion.span
             initial={{ opacity: 0, y: 20 }}
             animate={titleInView ? { opacity: 1, y: 0 } : {}}
@@ -134,12 +143,12 @@ export function TrustSection() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={statsInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.6, delay: i * 0.12, ease: [0.22, 1, 0.36, 1] }}
-                className="flex flex-col items-center justify-center px-8 py-10 text-center"
+                className="flex flex-col items-center justify-center px-3 py-7 text-center sm:px-8 sm:py-10"
               >
-                <span className="font-serif text-5xl font-light tracking-tight text-foreground lg:text-6xl">
+                <span className="font-serif text-3xl font-light tracking-tight text-foreground sm:text-5xl lg:text-6xl">
                   <AnimatedCounter value={stat.value} suffix={stat.suffix} isInView={statsInView} />
                 </span>
-                <span className="mt-2 text-xs font-medium uppercase tracking-widest text-muted-foreground">
+                <span className="mt-1 text-[10px] font-medium uppercase tracking-wider text-muted-foreground sm:mt-2 sm:text-xs sm:tracking-widest">
                   {t.trust[stat.key as keyof typeof t.trust] as string}
                 </span>
               </motion.div>
@@ -149,12 +158,23 @@ export function TrustSection() {
       </div>
 
       {/* ── Testimonials marquee ── */}
-      <div className="relative mb-24 overflow-hidden">
+      <div className="relative mb-16 overflow-hidden lg:mb-24">
         {/* fade edges */}
         <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-32 bg-gradient-to-r from-background to-transparent" />
         <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-32 bg-gradient-to-l from-background to-transparent" />
 
-        <div className="animate-marquee flex gap-5 w-max">
+        <motion.div
+          animate={marqueeControls}
+          className="flex gap-5 w-max"
+          style={{ willChange: "transform" }}
+          onMouseEnter={() => marqueeControls.stop()}
+          onMouseLeave={() =>
+            marqueeControls.start({
+              x: ["0%", "-50%"],
+              transition: { duration: 40, repeat: Infinity, ease: "linear" },
+            })
+          }
+        >
           {allTestimonials.map((item, i) => (
             <div
               key={i}
@@ -178,7 +198,7 @@ export function TrustSection() {
               </div>
             </div>
           ))}
-        </div>
+        </motion.div>
       </div>
 
       {/* ── Team ── */}
@@ -188,7 +208,7 @@ export function TrustSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={teamInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="mb-12 flex items-end justify-between border-b border-border/50 pb-6"
+          className="mb-8 flex flex-col gap-4 border-b border-border/50 pb-6 sm:flex-row sm:items-end sm:justify-between lg:mb-12"
         >
           <div>
             <span className="text-xs font-medium uppercase tracking-widest text-accent">

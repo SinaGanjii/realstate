@@ -74,10 +74,10 @@ function ProcessStep({
 
       {/* Connector arrow — desktop only */}
       {!isLast && (
-        <div className="absolute top-[calc(2.5rem-1px)] left-full hidden -translate-y-px items-center lg:flex" style={{ width: "calc(var(--gap, 2rem) + 1px)" }}>
+        <div className="absolute top-0 left-full hidden w-16 -translate-y-px items-center lg:flex">
           <div className="h-px flex-1 bg-border/40" />
-          <svg className="h-3 w-3 shrink-0 text-border/40" fill="currentColor" viewBox="0 0 12 12">
-            <path d="M4 1l5 5-5 5" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+          <svg className="h-3 w-3 shrink-0 text-border/40" fill="none" viewBox="0 0 12 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M4 1l5 5-5 5" />
           </svg>
         </div>
       )}
@@ -107,7 +107,7 @@ export function ProcessSection() {
 
       <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
         {/* Section Header */}
-        <div ref={titleRef} className="mx-auto max-w-2xl text-center mb-20">
+        <div ref={titleRef} className="mx-auto max-w-2xl text-center mb-12 lg:mb-20">
           <motion.span
             initial={{ opacity: 0, y: 20 }}
             animate={titleInView ? { opacity: 1, y: 0 } : {}}
@@ -127,7 +127,7 @@ export function ProcessSection() {
         </div>
 
         {/* Process Steps */}
-        <div className="grid gap-12 lg:grid-cols-3 lg:gap-16">
+        <div className="grid gap-10 sm:grid-cols-3 sm:gap-8 lg:gap-16">
           {steps.map((step, index) => (
             <ProcessStep
               key={step.key}

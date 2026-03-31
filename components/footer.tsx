@@ -22,9 +22,9 @@ export function Footer() {
   return (
     <footer className="relative border-t border-border/50 bg-muted/20">
       <div className="mx-auto max-w-7xl px-6 py-16 lg:px-8 lg:py-24">
-        <div className="grid gap-12 lg:grid-cols-4 lg:gap-8">
+        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
           {/* Brand Column */}
-          <div className="lg:col-span-1">
+          <div className="sm:col-span-2 lg:col-span-1">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -181,11 +181,11 @@ export function Footer() {
             <p className="mt-2 text-sm text-muted-foreground">
               Stay updated with our latest projects and offers.
             </p>
-            <form className="mt-4 flex gap-2">
+            <form className="mt-4 flex flex-col gap-2 sm:flex-row">
               <input
                 type="email"
                 placeholder="Enter your email"
-                className="flex-1 rounded-full border border-border bg-background px-4 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
+                className="w-full rounded-full border border-border bg-background px-4 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent sm:flex-1"
               />
               <motion.button
                 whileHover={{ scale: 1.02 }}

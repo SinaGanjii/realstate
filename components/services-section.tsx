@@ -154,10 +154,10 @@ export function ServicesSection() {
   const { ref: titleRef, isInView: titleInView } = useScrollAnimation()
 
   return (
-    <section id="services" className="relative py-24 lg:py-32">
+    <section id="services" className="relative py-16 lg:py-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         {/* Section Header */}
-        <div ref={titleRef} className="mx-auto max-w-2xl text-center mb-16">
+        <div ref={titleRef} className="mx-auto max-w-2xl text-center mb-10 lg:mb-16">
           <motion.span
             initial={{ opacity: 0, y: 20 }}
             animate={titleInView ? { opacity: 1, y: 0 } : {}}
